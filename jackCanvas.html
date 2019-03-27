@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Canvas Example</title>
+	<style type="text/css">
+		canvas{
+			border: 1px solid black;
+			margin-left: auto;
+			margin-right: auto;
+			display: block;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Canvas Example</h1>
+	<canvas id="canvas">
+  An alternative text describing what your canvas displays. 
+	</canvas>
+
+<script>
+const canvas = document.querySelector('#canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = 0.8*window.innerWidth;
+canvas.height = 0.8*window.innerHeight;
+
+ctx.lineJoin = 'round';
+ctx.lineCap = 'round';
+ctx.lineWidth = 20;
+ctx.strokeStyle = 'red';
+
+let paint = false;
+let lastX = 0;
+let lastY = 0;
+
+function pen(e) {
+
+	if(!paint) return;
+
+	ctx.beginPath();
+	ctx.moveTo(lastX, lastY);
+	ctx.lineTo(e.offsetX, e.offsetY);
+	ctx.stroke();
+	[lastX, lastY] = [e.offsetX, e.offsetY];
+}
+
+canvas.addEventListener('mousedown', function(e) {
+	paint = true;
+	[lastX, lastY] = [e.offsetX, e.offsetY];
+});
+
+canvas.addEventListener('mousemove', pen);
+canvas.addEventListener('mouseup', function() {
+	paint = false;
+});
+canvas.addEventListener('mouseout', function() {
+	paint = false;
+});
+
+window.addEventListener('keydown', function(e) {
+	if(e.key == 'b') {
+		ctx.strokeStyle = 'blue';
+	}
+	if(e.key == 'g') {
+		ctx.strokeStyle = 'green';
+	}
+	if(e.key == 'r') {
+		ctx.strokeStyle = 'red';
+	}
+	if(e.key == 'y') {
+		ctx.strokeStyle = 'yellow';
+	}
+	if(e.key == 'ArrowUp') {
+		ctx.lineWidth++;
+	}
+	if(e.key == 'ArrowDown') {
+		//why does this never go below 1? must be a lineWidth property, how convenient 
+		ctx.lineWidth--;
+	}
+	if(e.key == ' ') {
+		const canvas = document.querySelector('#canvas');
+		const ctx = canvas.getContext('2d');
+		canvas.width = 0.8*window.innerWidth;
+		canvas.height = 0.8*window.innerHeight;
+
+		ctx.lineJoin = 'round';
+		ctx.lineCap = 'round';
+		ctx.lineWidth = 20;
+		ctx.strokeStyle = 'red';
+
+		let paint = false;
+		let lastX = 0;
+		let lastY = 0;
+	}
+});
+
+
+</script>
+
+
+
+</body>
+</html>
