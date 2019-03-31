@@ -82,9 +82,9 @@
 			if(e.key == 'y') {
 				ctx.strokeStyle = 'yellow';
 			}
-			else {
-				ctx.strokeStyle = color
-			}
+			// else {
+			// 	ctx.strokeStyle = color;
+			// }
 			if(e.key == 'ArrowUp') {
 				ctx.lineWidth++;
 			}
@@ -100,7 +100,6 @@
 		function pen(e) {
 
 			if(!paint) return;
-
 			ctx.beginPath();
 			ctx.moveTo(lastX, lastY);
 			ctx.lineTo(e.offsetX, e.offsetY);
