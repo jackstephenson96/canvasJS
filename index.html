@@ -134,14 +134,36 @@
 			}
 		});
 
-		canvas.addEventListener('ontouchstart', function(e) {
+		canvas.addEventListener('touchstart', function(e) {
+			console.log("started touching");
+			e.preventDefault();
 			paint = true;
-			[lastX, lastY] = [e.offsetX, e.offsetY];
+			var rect = e.target.getBoundingClientRect();
+			lastX = e.targetTouches[0].pageX - rect.left;
+			lastY = e.targetTouches[0].pageY - rect.top;
+			console.log(lastX);
+			console.log(lastY);
 		}, false);
 
-		canvas.addEventListener('ontouchmove', pen);
+		canvas.addEventListener('touchmove', function(e) {
+			console.log("moving touch");
+			e.preventDefault();
+			if(!paint) return;
 
-		canvas.addEventListener('ontouchend', function() {
+			var rect = e.target.getBoundingClientRect();
+			lastX = e.targetTouches[0].pageX - rect.left;
+			lastY = e.targetTouches[0].pageY - rect.top;
+
+			ctx.beginPath();
+			ctx.moveTo(lastX, lastY);
+			ctx.lineTo(e.offsetX, e.offsetY);
+			ctx.stroke();
+			console.log('draw')
+		}, false);
+
+		canvas.addEventListener('touchend', function(e) {
+			console.log("touch over");
+			e.preventDefault();
 			paint = false;
 		}, false);
 
