@@ -56,6 +56,8 @@
 			const ctx = canvas.getContext('2d');
 			canvas.width = 0.8*window.innerWidth;
 			canvas.height = 0.8*window.innerHeight;
+			console.log(canvas.width);
+			console.log(canvas.height);
 
 			ctx.lineJoin = 'round';
 			ctx.lineCap = 'round';
@@ -66,6 +68,7 @@
 			let lastX = 0;
 			let lastY = 0;
 			let orientation = 1;
+			location.reload();
 		}
 
 		function getInput(e, color) {
