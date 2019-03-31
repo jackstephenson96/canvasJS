@@ -138,35 +138,39 @@
 			console.log("started touching");
 			e.preventDefault();
 			paint = true;
-			var rect = e.target.getBoundingClientRect();
-			lastX = e.targetTouches[0].pageX - rect.left;
-			lastY = e.targetTouches[0].pageY - rect.top;
-			console.log(lastX);
-			console.log(lastY);
+			var touches = e.targetTouches[0]
+			lastX = touches.pageX - touches.target.offsetLeft;
+			lastY = touches.pageY - touches.target.offsetTop;
+			// console.log(lastX);
+			// console.log(lastY);
 		}, false);
 
 		canvas.addEventListener('touchmove', function(e) {
-			console.log("moving touch");
 			e.preventDefault();
 			if(!paint) return;
 
-			var rect = e.target.getBoundingClientRect();
-			lastX = e.targetTouches[0].pageX - rect.left;
-			lastY = e.targetTouches[0].pageY - rect.top;
-
 			ctx.beginPath();
+			// draw from
+			console.log('start')
+			console.log(e.targetTouches)
+
 			ctx.moveTo(lastX, lastY);
-			ctx.lineTo(e.offsetX, e.offsetY);
+
+			var touches = e.targetTouches[0]
+			lastX = touches.pageX - touches.target.offsetLeft;
+			lastY = touches.pageY - touches.target.offsetTop;
+			// draw to
+			ctx.lineTo(lastX, lastY);
 			ctx.stroke();
-			console.log('draw')
+			console.log('drawing')
 		}, false);
 
 		canvas.addEventListener('touchend', function(e) {
-			console.log("touch over");
+			// console.log(lastX);
+			// console.log(lastY);
 			e.preventDefault();
 			paint = false;
 		}, false);
-
 
 
 		
