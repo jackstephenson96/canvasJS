@@ -65,6 +65,7 @@
 			let paint = false;
 			let lastX = 0;
 			let lastY = 0;
+			let orientation = 1;
 		}
 
 		function getInput(e, color) {
@@ -128,11 +129,9 @@
 		window.addEventListener('keydown', getInput);
 
 		// using jQuery for a change:
-		$(window).on("orientationchange",function(){
-			if(window.orientation == 0) {
-			  reset();
-			}
-		});
+		$(window).on("orientationchange",reset);
+
+		console.log('orientation= ' + orientation)
 
 		canvas.addEventListener('touchstart', function(e) {
 			console.log("started touching");
