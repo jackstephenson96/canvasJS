@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Canvas Example</title>
 	<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="jscolor.js"></script>
 	<style type="text/css">
 		* {
 			touch-action: none;
@@ -29,6 +30,7 @@
 	</canvas>
 	<input type="color" value="#FF0000" id="cp">
 
+
 	<script>
 
 		// for touchscreen; disable scrolling with 
@@ -36,8 +38,8 @@
 		var color = c.value;
 		
 
+
 		const canvas = document.querySelector('#canvas');
-		const cp = document.querySelector('#cp');
 		const ctx = canvas.getContext('2d');
 		canvas.width = 0.8*window.innerWidth;
 		canvas.height = 0.8*window.innerHeight;
@@ -56,8 +58,6 @@
 			const ctx = canvas.getContext('2d');
 			canvas.width = 0.8*window.innerWidth;
 			canvas.height = 0.8*window.innerHeight;
-			console.log(canvas.width);
-			console.log(canvas.height);
 
 			ctx.lineJoin = 'round';
 			ctx.lineCap = 'round';
@@ -126,7 +126,7 @@
    
 		c.addEventListener('change', function() {
 			var color = c.value;
-			ctx.strokeStyle = color
+			ctx.strokeStyle = color;
 		}, false);
 
 		window.addEventListener('keydown', getInput);
@@ -134,15 +134,12 @@
 		// using jQuery for a change:
 		$(window).on("orientationchange",reset);
 
-		canvas.addEventListener('touchstart', function(e) {
-			console.log("started touching");
+		canvas.addEventListener('touchstart', function(e, color) {
 			e.preventDefault();
 			paint = true;
 			var touches = e.targetTouches[0]
 			lastX = touches.pageX - touches.target.offsetLeft;
 			lastY = touches.pageY - touches.target.offsetTop;
-			// console.log(lastX);
-			// console.log(lastY);
 		}, false);
 
 		canvas.addEventListener('touchmove', function(e) {
@@ -151,9 +148,6 @@
 
 			ctx.beginPath();
 			// draw from
-			console.log('start')
-			console.log(e.targetTouches)
-
 			ctx.moveTo(lastX, lastY);
 
 			var touches = e.targetTouches[0]
@@ -162,15 +156,14 @@
 			// draw to
 			ctx.lineTo(lastX, lastY);
 			ctx.stroke();
-			console.log('drawing')
 		}, false);
 
 		canvas.addEventListener('touchend', function(e) {
-			// console.log(lastX);
-			// console.log(lastY);
 			e.preventDefault();
 			paint = false;
 		}, false);
+
+
 
 
 		
